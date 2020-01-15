@@ -9,8 +9,38 @@ package domain;
  *
  * @author vidan
  */
-public interface Pizza {
+public abstract class Pizza implements OpstiDomenskiObjekat{
 
-    public String vratiOpis();
-    public double vratiCenu();
+    protected Long id;
+    
+    public abstract String vratiOpis();
+    public abstract double vratiCenu();
+    
+    @Override
+    public String dajNaziveAtributa(){
+        return "opis, cena";
+    }
+    
+    @Override
+    public String dajVrednostiAtributa(){
+        return "'"+vratiOpis()+"', "+vratiCenu();
+    }
+    
+    @Override
+    public boolean isAutoincrement(){
+        return true;
+    }
+    
+    @Override
+    public String dajNazivTabele(){
+        return "pizza";
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    
+    
 }

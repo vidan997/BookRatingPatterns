@@ -8,6 +8,8 @@ package controller;
 import domain.*;
 import java.util.ArrayList;
 import java.util.List;
+import so.OpstaSistemskaOperacija;
+import so.SOUbaciNarudzbinu;
 
 /**
  *
@@ -36,6 +38,12 @@ public class Controller {
 
     public List<Prilozi> vratiPriloge() {
         return prilozi;
+    }
+
+    public Pizza savePizza(Pizza pizza) throws Exception {
+        OpstaSistemskaOperacija so=new SOUbaciNarudzbinu(pizza);
+        so.opsteIzvrsenje();
+        return (Pizza)so.getOdo();
     }
     
     

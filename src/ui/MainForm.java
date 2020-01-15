@@ -5,7 +5,12 @@
  */
 package ui;
 
+import controller.Controller;
 import domain.*;
+import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import ui.comp.TableModelPrilozi;
 
 /**
@@ -16,6 +21,7 @@ public class MainForm extends javax.swing.JFrame {
 
     TableModelPrilozi table;
     Pizza pizza;
+
     public MainForm() {
         initComponents();
         table = new TableModelPrilozi();
@@ -42,6 +48,7 @@ public class MainForm extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtCena = new javax.swing.JTextField();
+        btnNaruci = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,14 +88,22 @@ public class MainForm extends javax.swing.JFrame {
         txtCena.setEditable(false);
         txtCena.setText("0.00");
 
+        btnNaruci.setText("Naruci");
+        btnNaruci.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNaruciActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnNaruci, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -97,7 +112,7 @@ public class MainForm extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 1, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(txtCena, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -121,24 +136,45 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCena, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addComponent(btnNaruci)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       int row = tblPrilozi.getSelectedRow();
-       Prilozi prilog = table.uvecaj(row);
-       prilog.setNext(pizza);
-       pizza = prilog;
-       txtCena.setText(pizza.vratiCenu()+"");
+        int row = tblPrilozi.getSelectedRow();
+        Prilozi prilog;
+        try {
+            prilog = table.uvecaj(row);
+            prilog.setNext(pizza);
+            pizza = prilog;
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        txtCena.setText(pizza.vratiCenu() + "");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cmbTestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTestoActionPerformed
         pizza = (Pizza) cmbTesto.getSelectedItem();
+        table.promeni();
     }//GEN-LAST:event_cmbTestoActionPerformed
 
+    private void btnNaruciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNaruciActionPerformed
+        try {
+            Controller.getInstance().savePizza(pizza);
+            JOptionPane.showMessageDialog(this, pizza.vratiOpis(),"Narucena" ,WIDTH);
+        } catch (Exception ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.exit(1);
+    }//GEN-LAST:event_btnNaruciActionPerformed
+
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -175,6 +211,7 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnNaruci;
     private javax.swing.JComboBox cmbTesto;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

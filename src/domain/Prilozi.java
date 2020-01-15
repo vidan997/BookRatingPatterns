@@ -9,7 +9,7 @@ package domain;
  *
  * @author vidan
  */
-public abstract class Prilozi implements Pizza {
+public abstract class Prilozi extends Pizza implements  Cloneable{
 
     protected Pizza tempPizza;
 
@@ -31,4 +31,11 @@ public abstract class Prilozi implements Pizza {
         tempPizza = pizza;
     }
 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+    
+    
 }

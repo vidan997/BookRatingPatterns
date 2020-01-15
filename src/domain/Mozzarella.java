@@ -9,7 +9,7 @@ package domain;
  *
  * @author vidan
  */
-public class Mozzarella extends Prilozi{
+public class Mozzarella extends Prilozi {
 
     public Mozzarella(Pizza tempPizza) {
         super(tempPizza);

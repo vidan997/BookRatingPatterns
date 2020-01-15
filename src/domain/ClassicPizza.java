@@ -9,11 +9,11 @@ package domain;
  *
  * @author vidan
  */
-public class ClassicPizza implements Pizza{
+public class ClassicPizza extends Pizza{
 
     @Override
     public String vratiOpis() {
-        return "Ova pica je spremljena klasicnim nacinom. \n Prilozi: \n";
+        return "ID:"+id+" \nOva pica je spremljena klasicnim nacinom. \n Prilozi: \n";
     }
 
     @Override
@@ -25,6 +25,8 @@ public class ClassicPizza implements Pizza{
     public String toString() {
         return "Classic pizza";
     }
+
+    
     
     
     

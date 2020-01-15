@@ -9,11 +9,11 @@ package domain;
  *
  * @author vidan
  */
-public class NewYorkStyle implements Pizza{
+public class NewYorkStyle extends Pizza{
     
     @Override
     public String vratiOpis() {
-        return "Ova pica je spremljena New York nacinom. \n Prilozi: \n";
+        return "ID:"+id+" \nOva pica je spremljena New York nacinom. \n Prilozi: \n";
     }
 
     @Override

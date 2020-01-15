@@ -53,10 +53,10 @@ public class TableModelPrilozi extends javax.swing.table.AbstractTableModel {
         }
     }
 
-    public Prilozi uvecaj(int y) {
+    public Prilozi uvecaj(int y) throws CloneNotSupportedException {
         setValueAt(kolicinaPriloga[y] + 1, y, 1);
         fireTableDataChanged();
-        return prilozi.get(y);
+        return (Prilozi) prilozi.get(y).clone();
     }
 
     @Override
@@ -70,6 +70,13 @@ public class TableModelPrilozi extends javax.swing.table.AbstractTableModel {
                 return;
         }
         
+    }
+
+    public void promeni() {
+        for (int kol : kolicinaPriloga) {
+            kol = 0;
+        }
+        fireTableDataChanged();
     }
 
 

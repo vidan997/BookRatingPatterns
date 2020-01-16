@@ -13,7 +13,7 @@ public class ClassicPizza extends Pizza{
 
     @Override
     public String vratiOpis() {
-        return "ID:"+id+" \nOva pica je spremljena klasicnim nacinom. \n Prilozi: \n";
+        return "Ova pica je spremljena klasicnim nacinom. \n Prilozi: \n";
     }
 
     @Override

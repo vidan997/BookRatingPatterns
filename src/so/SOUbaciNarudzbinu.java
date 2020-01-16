@@ -21,8 +21,6 @@ public class SOUbaciNarudzbinu extends OpstaSistemskaOperacija {
     @Override
     public void izvrsenjeOperacije() throws Exception {
         odo = dbbr.insert(odo);
-        Pizza item = (Pizza) odo;
-        dbbr.insert(item);
     }
 
 }
